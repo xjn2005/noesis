@@ -1,30 +1,18 @@
-# Quartz v5
+﻿# Noesis
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Noesis is my public knowledge site built with Quartz and synced from an Obsidian vault.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+The source notes live in Obsidian. Only notes marked for publishing are copied into this repository and deployed to GitHub Pages.
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## Writing Flow
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+Use these folders in the Obsidian vault:
 
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
-
-## Obsidian sync
-
-Use these folders in your Obsidian vault:
-
-- `public/`: notes that can become website content
+- `public/`: notes that can be published
 - `private/`: private notes, never synced
 - `drafts/`: draft notes, never synced
 
-Published notes need this frontmatter:
+Add this frontmatter to every note that should appear on the site:
 
 ```yaml
 ---
@@ -33,10 +21,42 @@ draft: false
 ---
 ```
 
-Sync command:
+## Sync Notes
+
+From this repository:
 
 ```bash
-npm run sync:obsidian -- --vault "D:\path\to\your\vault"
+npm run sync:obsidian -- --vault "D:\OneDrive\OneDrive\文档\Obsidian Vault"
 ```
 
-You can also set `OBSIDIAN_VAULT`, then run `npm run sync:obsidian`.
+Synced notes are copied into `content/public`.
+
+## Local Preview
+
+```bash
+npm run quartz -- build --serve
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
+
+## Deploy
+
+GitHub Pages deploys automatically from the `main` branch.
+
+Push changes with:
+
+```bash
+git add -A
+git commit -m "Update Noesis content"
+git push
+```
+
+The deployed site is:
+
+```text
+https://xjn2005.github.io/noesis/
+```
