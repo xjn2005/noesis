@@ -52,7 +52,7 @@ async function walk(dir) {
 
 const vault = arg("--vault") ?? process.env.OBSIDIAN_VAULT
 const sourceInput = arg("--source") ?? (vault ? path.join(vault, "public") : undefined)
-const dest = path.resolve(arg("--dest") ?? path.join(repo, "content", "public"))
+const dest = path.resolve(arg("--dest") ?? path.join(repo, "content"))
 
 if (!sourceInput) {
   console.error('Usage: npm run sync:obsidian -- --vault "D:\\path\\to\\vault"')

@@ -10,4 +10,4 @@ Public notes from my Obsidian vault.
 
 ## Notes
 
-- [[public/C++/OOP|OOP]]
+- [[C++/OOP|OOP]]
