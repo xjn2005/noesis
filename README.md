@@ -1,29 +1,14 @@
 ﻿# Noesis
 
-Noesis is a public knowledge site built with Quartz and synced from Obsidian.
+[![Built with Quartz](https://img.shields.io/badge/Built%20with-Quartz-8A63D2)](https://quartz.jzhao.xyz/)
+[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-222222?logo=github)](https://pages.github.com/)
 
-Site: https://xjn2005.github.io/noesis/
+Noesis 是我的公开知识库，使用 Quartz 构建，并从 Obsidian 同步内容。
 
-## Workflow
+网站地址：https://xjn2005.github.io/noesis/
 
-In Obsidian, put publishable notes under `public/` and add:
+## License
 
-```yml
----
-publish: true
-draft: false
----
-```
+[![CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
-```bash
-npm run sync:obsidian -- --vault "D:\OneDrive\OneDrive\文档\Obsidian Vault"
-npm run quartz -- build --serve
-```
-
-Deploy happens automatically from `main` via GitHub Pages.
-
-```bash
-git add -A
-git commit -m "Update Noesis content"
-git push
-```
+本站内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en) 许可协议。
