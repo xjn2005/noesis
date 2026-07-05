@@ -1,7 +1,7 @@
 ---
 title: Home
 publish: true
-draft: false
+draft: true
 ---
 
 # Home
