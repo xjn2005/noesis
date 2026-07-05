@@ -77,7 +77,10 @@ let copied = 0
 let skipped = 0
 
 for (const file of await walk(source)) {
-  const rel = path.relative(source, file)
+  const relParts = path.relative(source, file).split(path.sep)
+  if (relParts[0] === "C++") {
+    relParts[0] = "cpp"
+  }
 
   if (path.extname(file).toLowerCase() === ".md") {
     const text = await fs.readFile(file, "utf8")
@@ -88,7 +91,7 @@ for (const file of await walk(source)) {
     }
   }
 
-  const target = path.join(dest, rel)
+  const target = path.join(dest, ...relParts)
   await fs.mkdir(path.dirname(target), { recursive: true })
   await fs.copyFile(file, target)
   copied++
