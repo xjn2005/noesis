@@ -310,8 +310,18 @@ function trySymlink(target: string, linkPath: string): void {
   try {
     fs.symlinkSync(target, linkPath, "dir")
   } catch (err: unknown) {
-    if ((err as NodeJS.ErrnoException).code === "EEXIST") return
-    throw err
+    const code = (err as NodeJS.ErrnoException).code
+    if (code === "EEXIST") return
+    if (code !== "EPERM" || process.platform !== "win32") throw err
+
+    const resolvedTarget = path.resolve(path.dirname(linkPath), target)
+    try {
+      fs.symlinkSync(resolvedTarget, linkPath, "junction")
+    } catch (junctionErr: unknown) {
+      if ((junctionErr as NodeJS.ErrnoException).code === "EEXIST") return
+      // ponytail: Windows without link privileges; copy peer deps if junctions are blocked too.
+      fs.cpSync(resolvedTarget, linkPath, { recursive: true })
+    }
   }
 }
 

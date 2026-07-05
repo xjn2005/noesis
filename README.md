@@ -15,3 +15,28 @@ Quartz is a set of tools that helps you publish your [digital garden](https://jz
     <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
   </a>
 </p>
+
+## Obsidian sync
+
+Use these folders in your Obsidian vault:
+
+- `public/`: notes that can become website content
+- `private/`: private notes, never synced
+- `drafts/`: draft notes, never synced
+
+Published notes need this frontmatter:
+
+```yaml
+---
+publish: true
+draft: false
+---
+```
+
+Sync command:
+
+```bash
+npm run sync:obsidian -- --vault "D:\path\to\your\vault"
+```
+
+You can also set `OBSIDIAN_VAULT`, then run `npm run sync:obsidian`.

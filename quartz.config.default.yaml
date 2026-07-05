@@ -1,15 +1,16 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: Noesis
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: quartz.jzhao.xyz
+  baseUrl: xjn2005.github.io/noesis
   ignorePatterns:
     - private
+    - drafts
     - templates
     - .obsidian
   theme:
@@ -103,7 +104,7 @@ plugins:
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
-    enabled: false
+    enabled: true
   - source: github:quartz-community/alias-redirects
     enabled: true
   - source: github:quartz-community/content-index
