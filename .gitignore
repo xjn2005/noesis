@@ -18,3 +18,4 @@ replit.nix
 .quartz/plugins/*
 !.quartz/plugins/index.ts
 quartz/cli/tui/dist/
+LOCAL_MAINTENANCE.md
