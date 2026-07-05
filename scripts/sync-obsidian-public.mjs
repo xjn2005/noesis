@@ -78,9 +78,6 @@ let skipped = 0
 
 for (const file of await walk(source)) {
   const relParts = path.relative(source, file).split(path.sep)
-  if (relParts[0] === "C++") {
-    relParts[0] = "cpp"
-  }
 
   if (path.extname(file).toLowerCase() === ".md") {
     const text = await fs.readFile(file, "utf8")
