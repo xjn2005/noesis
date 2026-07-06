@@ -6,4 +6,4 @@ draft: false
 
 # C++
 
-- [[OOP]]
+- [[01-OOP]]
