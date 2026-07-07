@@ -4,9 +4,9 @@ publish: true
 draft: false
 ---
 
-# Noesis
+# About
 
-> [!info] About
+> [!info] 
 > 欢迎来到我的 Obsidian 站点，我会在此公开我的学习笔记。
 
 > [!warning] 
