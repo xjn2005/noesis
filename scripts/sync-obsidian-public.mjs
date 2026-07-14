@@ -75,9 +75,11 @@ await fs.mkdir(dest, { recursive: true })
 
 let copied = 0
 let skipped = 0
+const indexes = new Map()
 
 for (const file of await walk(source)) {
-  const relParts = path.relative(source, file).split(path.sep)
+  const sourceRelParts = path.relative(source, file).split(path.sep)
+  const relParts = [...sourceRelParts]
   if (relParts[0] === "C++") {
     relParts[0] = "cpp"
   }
@@ -91,10 +93,49 @@ for (const file of await walk(source)) {
     }
   }
 
+  const dirParts = relParts.slice(0, -1)
+  for (let depth = 1; depth <= dirParts.length; depth++) {
+    const parts = dirParts.slice(0, depth)
+    const key = parts.join(path.sep)
+    if (!indexes.has(key)) {
+      const title = depth === 1 && parts[0] === "cpp" ? "C++" : sourceRelParts[depth - 1]
+      indexes.set(key, { parts, title, notes: [] })
+    }
+  }
+
+  if (
+    dirParts.length > 0 &&
+    path.extname(file).toLowerCase() === ".md" &&
+    relParts.at(-1).toLowerCase() !== "index.md"
+  ) {
+    indexes
+      .get(dirParts.join(path.sep))
+      .notes.push(path.basename(relParts.at(-1), path.extname(relParts.at(-1))))
+  }
+
   const target = path.join(dest, ...relParts)
   await fs.mkdir(path.dirname(target), { recursive: true })
   await fs.copyFile(file, target)
   copied++
+}
+
+for (const { parts, title, notes } of indexes.values()) {
+  const directory = path.join(dest, ...parts)
+  const links = notes
+    .sort((a, b) => a.localeCompare(b, "zh-CN", { numeric: true }))
+    .map((note) => `- [[${note}]]`)
+    .join("\n")
+
+  await fs.mkdir(directory, { recursive: true })
+  await fs.writeFile(
+    path.join(directory, "index.md"),
+    `---
+${YAML.stringify({ title, publish: true, draft: false, cssclasses: ["hide-folder-list"] })}---
+
+# 目录
+
+${links}${links ? "\n" : ""}`,
+  )
 }
 
 console.log(`Synced ${copied} file(s) to ${path.relative(repo, dest)}; skipped ${skipped}.`)
