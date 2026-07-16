@@ -16,3 +16,14 @@ std::unique_ptr<T[]> p = std::make_unique<T[]>(initialCapacity);
 因为变量类型比较长，用auto就可以使代码更简洁、更易读。
 >[!WARNING]
 >当 auto 能够**消除冗长类型并保持代码清晰**时，应优先使用。当 auto 会**隐藏重要类型信息**时，应显式写出类型。例如`auto it = std::max_element(v.begin(), v.end());`中， `it` 的类型是 `std::vector<int>::iterator` 是确定的，这个类型名称很长，且明确知道它是迭代器类型。此时使用就比较合适。但是如果写`auto x = 5`就属于滥用，因为很明显`x`是`int`类型。
+
+不过`auto`用于类外函数声明时，作用就不是自动推断了。
+例如：`auto BufferPoolManager::Size() const -> size_t { return num_frames_; }`
+这种语法叫做**尾置返回类型 (Trailing Return Type)**。这里的 `auto` 只是一个占位符，真正的返回类型通过 `->` 放在了参数列表后面。
+尤其是在头文件里声明一个泛型函数的时候，如下情况必须使用尾置返回类型。
+```cpp
+// Math.h
+template <typename T, typename U>
+auto Add(T a, U b); 
+// error：函数身上只有 auto，没有函数体。编译器无法推断。
+```
